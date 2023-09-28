@@ -1,5 +1,6 @@
 import fnmatch
-from typing import List, Union, Callable
+from typing import Callable, List, Union
+
 from typing_extensions import Literal
 
 

@@ -1,6 +1,9 @@
 from __future__ import annotations
-import torch.nn as nn
+
 from typing import Callable, Literal
+
+import torch.nn as nn
+
 from .torch_utils import get_activation, get_initializer
 
 __all__ = ["build_mlp", "MLP"]
@@ -75,7 +78,11 @@ def build_mlp(
     if hidden_depth == 0:
         mods = [nn.Linear(input_dim, output_dim)]
     else:
-        mods = [nn.Linear(input_dim, hidden_dim), norm_type(hidden_dim), act_layer()]
+        mods = [
+            nn.Linear(input_dim, hidden_dim),
+            norm_type(hidden_dim),
+            act_layer(),
+        ]
         for i in range(hidden_depth - 1):
             mods += [
                 nn.Linear(hidden_dim, hidden_dim),

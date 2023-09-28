@@ -5,7 +5,6 @@ pip install x_transformers==0.27.1
 """
 from x_transformers.x_transformers import *
 
-
 __all__ = ["TemporalTransformer", "make_temporal_transformer"]
 
 
@@ -82,7 +81,9 @@ class TemporalTransformer(nn.Module):
         return x
 
 
-def make_temporal_transformer(arch_spec: str, max_seq_len: int, input_dim=None):
+def make_temporal_transformer(
+    arch_spec: str, max_seq_len: int, input_dim=None
+):
     """
     Args:
         arch_spec: i<input_dim>[.e<embed_dim>].d<depth>.nh<num_heads>[.glu|glusw][.rel][.onekv]

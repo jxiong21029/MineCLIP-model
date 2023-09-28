@@ -1,8 +1,8 @@
+import os.path
 from typing import Union
 
 import numpy as np
 import torch
-import os.path
 from PIL import Image
 
 
@@ -103,7 +103,9 @@ def any_to_torch_tensor(
 
     if not smart_optimize:
         # do a single stage type conversion and transfer
-        return x.to(dtype=dtype, device=device, copy=copy, non_blocking=non_blocking)
+        return x.to(
+            dtype=dtype, device=device, copy=copy, non_blocking=non_blocking
+        )
 
     # we have two choices: (1) convert dtype and then transfer to GPU
     # (2) transfer to GPU and then convert dtype
@@ -158,7 +160,9 @@ def any_to_numpy(
         return np.array(x, dtype=dtype, copy=copy)
 
 
-def img_to_tensor(file_path: str, dtype=None, device=None, add_batch_dim: bool = False):
+def img_to_tensor(
+    file_path: str, dtype=None, device=None, add_batch_dim: bool = False
+):
     """
     Args:
         scale_255: if True, scale to [0, 255]

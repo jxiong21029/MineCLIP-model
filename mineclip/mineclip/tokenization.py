@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import os
 from functools import lru_cache
 
@@ -6,7 +7,7 @@ from functools import lru_cache
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import torch
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoModel, AutoTokenizer
 
 
 def get_model_full_name(model_name):
@@ -33,7 +34,9 @@ def get_tokenizer(model_name, use_fast: bool = True):
 
 
 def tokenize_batch(
-    texts: str | list[str] | list[list[int]], max_length: int, language_model="clip"
+    texts: str | list[str] | list[list[int]],
+    max_length: int,
+    language_model="clip",
 ):
     """
     Args:
@@ -69,7 +72,9 @@ def tokenize_batch(
     else:
         raise NotImplementedError
 
-    batch_tokens = torch.ones((len(texts), max_length), dtype=torch.long) * pad_token_id
+    batch_tokens = (
+        torch.ones((len(texts), max_length), dtype=torch.long) * pad_token_id
+    )
     batch_tokens[:, 0] = begin_token_id
     for i, sentence in enumerate(text_tokens):
         sentence = sentence[: max_length - 2]

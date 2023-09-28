@@ -49,16 +49,18 @@ class CLIPScoreHead(nn.Module):
             adapted_img = self.video_adapter(video_feature)
         else:
             res = torch.sigmoid(self.video_residual_weight)
-            adapted_img = res * video_feature + (1.0 - res) * self.video_adapter(
-                video_feature
-            )
+            adapted_img = res * video_feature + (
+                1.0 - res
+            ) * self.video_adapter(video_feature)
         text_feature = self.clip_model.encode_text(texts)
         if self.text_residual_weight is None:
             adapted_text = self.text_adapter(text_feature)
         else:
             res = torch.sigmoid(self.text_residual_weight)
-            adapted_text = res * text_feature + (1.0 - res) * self.text_adapter(
-                text_feature
-            )
-        logits_per_video, logits_per_text = self.clip_model(adapted_img, adapted_text)
+            adapted_text = res * text_feature + (
+                1.0 - res
+            ) * self.text_adapter(text_feature)
+        logits_per_video, logits_per_text = self.clip_model(
+            adapted_img, adapted_text
+        )
         return logits_per_video, logits_per_text

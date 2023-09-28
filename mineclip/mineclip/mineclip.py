@@ -7,8 +7,8 @@ import torch.nn as nn
 
 from .base import VideoRewardBase
 from .clip import CLIP
-from .pooling import TemporalPooling
 from .head import CLIPScoreHead
+from .pooling import TemporalPooling
 
 
 class MineCLIP(VideoRewardBase):

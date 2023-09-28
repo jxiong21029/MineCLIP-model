@@ -2,12 +2,12 @@
 Base API for importing pretrained video models
 """
 from __future__ import annotations
+
 import torch
 import torch.nn as nn
 import torch.nn.functional
 
 import mineclip.utils as U
-
 
 __all__ = ["VideoRewardBase"]
 
@@ -58,7 +58,9 @@ class VideoRewardBase(nn.Module):
         assert video_feats.shape[0] == B
         return video_feats
 
-    def forward_reward_head(self, video_features, text_tokens=None, softmax=False):
+    def forward_reward_head(
+        self, video_features, text_tokens=None, softmax=False
+    ):
         """
         [B, F] -> [B, D]
         """
@@ -86,7 +88,9 @@ class VideoRewardBase(nn.Module):
         else:
             assert videos.ndim == 5, "video must be 5D (raw pixels)"
             return self.forward_reward_head(
-                self.forward_video_features(self.forward_image_features(videos)),
+                self.forward_video_features(
+                    self.forward_image_features(videos)
+                ),
                 text_tokens=text_tokens,
             )
 

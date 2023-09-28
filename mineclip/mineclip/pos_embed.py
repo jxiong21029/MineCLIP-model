@@ -1,5 +1,5 @@
-import torch
 import numpy as np
+import torch
 from einops import rearrange
 
 
@@ -32,7 +32,9 @@ def get_1d_sincos_pos_embed(embed_dim, seq_len: int, cls_token=False):
     grid = np.arange(seq_len, dtype=np.float32)
     pos_embed = get_1d_sincos_pos_embed_from_grid(embed_dim, grid)
     if cls_token:
-        pos_embed = np.concatenate([np.zeros([1, embed_dim]), pos_embed], axis=0)
+        pos_embed = np.concatenate(
+            [np.zeros([1, embed_dim]), pos_embed], axis=0
+        )
     return torch.tensor(pos_embed, dtype=torch.float)
 
 

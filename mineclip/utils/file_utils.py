@@ -1,5 +1,5 @@
-import os
 import collections
+import os
 
 
 def f_expand(fpath):
@@ -41,4 +41,6 @@ def _is_sequence(obj):
     Returns:
       True if the sequence is a collections.Sequence and not a string.
     """
-    return isinstance(obj, collections.abc.Sequence) and not isinstance(obj, str)
+    return isinstance(obj, collections.abc.Sequence) and not isinstance(
+        obj, str
+    )
