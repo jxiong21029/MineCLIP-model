@@ -1,5 +1,6 @@
-x_transformers==0.27.1
-torch
-Pillow
-transformers
+dm-tree
 kornia
+Pillow
+torch
+transformers
+x_transformers==0.27.1
