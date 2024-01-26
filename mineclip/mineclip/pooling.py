@@ -55,9 +55,7 @@ class TemporalPooling(nn.Module):
             self.mlp_before_pool = build_mlp(
                 input_dim=input_dim,
                 hidden_dim=hidden_dim,
-                output_dim=output_dim // 2
-                if pool_type == "catavgmax"
-                else output_dim,
+                output_dim=output_dim // 2 if pool_type == "catavgmax" else output_dim,
                 hidden_depth=layers_before_pool - 1,
                 add_input_activation=False,
             )

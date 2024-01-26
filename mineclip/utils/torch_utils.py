@@ -30,9 +30,7 @@ def torch_normalize(tensor: torch.Tensor, mean, std, inplace=False):
         Tensor: Normalized Tensor image.
     """
     if not torch.is_tensor(tensor):
-        raise TypeError(
-            "tensor should be a torch tensor. Got {}.".format(type(tensor))
-        )
+        raise TypeError("tensor should be a torch tensor. Got {}.".format(type(tensor)))
 
     if not inplace:
         tensor = tensor.clone()
@@ -111,9 +109,7 @@ def _tree_value_at_path(obj, paths: tuple):
             obj = obj[p]
         return obj
     except Exception as e:
-        raise ValueError(
-            f"{e}\n\n-- Incorrect nested path {paths} for object: {obj}."
-        )
+        raise ValueError(f"{e}\n\n-- Incorrect nested path {paths} for object: {obj}.")
 
 
 def get_activation(activation: str | Callable | None) -> Callable:
@@ -131,9 +127,7 @@ def get_activation(activation: str | Callable | None) -> Callable:
         "gelu": nn.GELU,
     }
     activation = activation.lower()
-    assert (
-        activation in ACT_LAYER
-    ), f"Supported activations: {ACT_LAYER.keys()}"
+    assert activation in ACT_LAYER, f"Supported activations: {ACT_LAYER.keys()}"
     return ACT_LAYER[activation]
 
 

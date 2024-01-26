@@ -24,9 +24,7 @@ def meta_decorator(decor):
       See stackoverflow: http://goo.gl/UEYbDB
     """
     single_callable = (
-        lambda args, kwargs: len(args) == 1
-        and len(kwargs) == 0
-        and callable(args[0])
+        lambda args, kwargs: len(args) == 1 and len(kwargs) == 0 and callable(args[0])
     )
 
     @functools.wraps(decor)

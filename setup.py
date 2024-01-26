@@ -19,16 +19,13 @@ def _read_file(fname):
 def _read_install_requires():
     with pathlib.Path("requirements.txt").open() as fp:
         return [
-            str(requirement)
-            for requirement in pkg_resources.parse_requirements(fp)
+            str(requirement) for requirement in pkg_resources.parse_requirements(fp)
         ]
 
 
 def _fill_extras(extras):
     if extras:
-        extras["all"] = list(
-            set([item for group in extras.values() for item in group])
-        )
+        extras["all"] = list(set([item for group in extras.values() for item in group]))
     return extras
 
 

@@ -1,9 +1,12 @@
 """
 Transformer aggregator in temporal dimension.
-https://github.com/lucidrains/x-transformers
-pip install x_transformers==0.27.1
 """
-from x_transformers.x_transformers import *
+import torch.nn as nn
+
+from mineclip.x_transformers_0_27_1 import (
+    ContinuousTransformerWrapper,
+    Encoder,
+)
 
 __all__ = ["TemporalTransformer", "make_temporal_transformer"]
 

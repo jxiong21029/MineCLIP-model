@@ -72,9 +72,7 @@ def tokenize_batch(
     else:
         raise NotImplementedError
 
-    batch_tokens = (
-        torch.ones((len(texts), max_length), dtype=torch.long) * pad_token_id
-    )
+    batch_tokens = torch.ones((len(texts), max_length), dtype=torch.long) * pad_token_id
     batch_tokens[:, 0] = begin_token_id
     for i, sentence in enumerate(text_tokens):
         sentence = sentence[: max_length - 2]

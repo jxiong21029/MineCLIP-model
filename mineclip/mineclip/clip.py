@@ -21,9 +21,7 @@ class QuickGELU(nn.Module):
 
 
 class ResidualAttentionBlock(nn.Module):
-    def __init__(
-        self, d_model: int, n_head: int, attn_mask: torch.Tensor = None
-    ):
+    def __init__(self, d_model: int, n_head: int, attn_mask: torch.Tensor = None):
         super().__init__()
 
         self.attn = nn.MultiheadAttention(d_model, n_head)
@@ -46,9 +44,7 @@ class ResidualAttentionBlock(nn.Module):
             if self.attn_mask is not None
             else None
         )
-        return self.attn(
-            x, x, x, need_weights=False, attn_mask=self.attn_mask
-        )[0]
+        return self.attn(x, x, x, need_weights=False, attn_mask=self.attn_mask)[0]
 
     def forward(self, x: torch.Tensor):
         x = x + self.attention(self.ln_1(x))
@@ -68,10 +64,7 @@ class Transformer(nn.Module):
         self.width = width
         self.layers = layers
         self.resblocks = nn.Sequential(
-            *[
-                ResidualAttentionBlock(width, heads, attn_mask)
-                for _ in range(layers)
-            ]
+            *[ResidualAttentionBlock(width, heads, attn_mask) for _ in range(layers)]
         )
 
     def forward(self, x: torch.Tensor):
@@ -133,9 +126,7 @@ class VisionTransformer(nn.Module):
                 self._resolution // self._patch_size,
                 [r // self._patch_size for r in new_resolution],
             )
-            self.pos_embed = nn.Parameter(
-                torch.cat([cls_embed, new_embed], dim=0)
-            )
+            self.pos_embed = nn.Parameter(torch.cat([cls_embed, new_embed], dim=0))
 
     def forward(self, x: torch.Tensor):
         x = self.conv1(x)  # shape = [*, width, grid, grid]
@@ -241,10 +232,7 @@ class GPT(nn.Module):
         # x.shape = [batch_size, n_ctx, transformer.width]
         # take features from the eot embedding (eot_token is the highest number in each sequence)
         if self._is_discrete_text:
-            x = (
-                x[torch.arange(x.shape[0]), text.argmax(dim=-1)]
-                @ self.projection
-            )
+            x = x[torch.arange(x.shape[0]), text.argmax(dim=-1)] @ self.projection
         else:
             # last token will be the GPT summary
             x = x[:, -1] @ self.projection
@@ -301,9 +289,7 @@ class CLIP(nn.Module):
     def encode_text(self, text):
         if isinstance(text, str) or isinstance(text, list):
             tokens = self.tokenize_text(text)
-            return self.encode_text(
-                tokens.to(device=U.get_device(self.text_model))
-            )
+            return self.encode_text(tokens.to(device=U.get_device(self.text_model)))
         elif text.dtype == torch.long:
             return self.text_model(text)
         else:
@@ -320,9 +306,7 @@ class CLIP(nn.Module):
             text_features = text
 
         # normalized features
-        image_features = image_features / image_features.norm(
-            dim=1, keepdim=True
-        )
+        image_features = image_features / image_features.norm(dim=1, keepdim=True)
         text_features = text_features / text_features.norm(dim=1, keepdim=True)
 
         # cosine similarity as logits

@@ -3,4 +3,3 @@ kornia
 Pillow
 torch
 transformers
-x_transformers==0.27.1
