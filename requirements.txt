@@ -1,4 +1,5 @@
 dm-tree
+entmax
 kornia
 Pillow
 torch
